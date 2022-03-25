@@ -21,11 +21,26 @@ const user = require("../model/userModel");
 userRoute.post(
   "/signup",
   [
-    check("first_name", "Name Should Be More Than 3 Characters")
+    check("first_name", "First Name Should Be More Than 3 Characters")
       .not()
       .isEmpty()
       .isLength({ min: 3 }),
+    check("last_name", "Last Name Should Be More Than 3 Characters")
+      .not()
+      .isEmpty()
+      .isLength({ min: 3 }),
+    check("dob", "Invalid Date").not().isEmpty().isDate(),
     check("emailid", "Your email is not valid").not().isEmpty().isEmail(),
+    check("password", "Password Must Contain 8 Characters & Special Characters")
+      .isLength({ min: 8 })
+      .not()
+      .isLowercase()
+      .not()
+      .isUppercase()
+      .not()
+      .isNumeric()
+      .not()
+      .isAlpha(),
   ],
   async (req, res) => {
     try {
@@ -60,9 +75,7 @@ userRoute.post(
             console.log(err);
             return res.json({ status: "fail", err });
           } else {
-            return res.json({ status: "success", msg: "User created" });
-
-            // res.send("Details Added Successfully");
+            return res.json({ status: "success", msg: "User Created" });
           }
         });
       }
