@@ -48,7 +48,7 @@ userRoute.post(
 
       const error = validationResult(req);
       if (!error.isEmpty()) {
-        return res.json({ status: "fail", errors: error.array() });
+        return res.json({ status: "validation", errors: error.array() });
       }
 
       //   const hashedpassword = bcrypt.hashSync(password, 12);
