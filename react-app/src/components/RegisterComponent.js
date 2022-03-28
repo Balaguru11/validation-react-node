@@ -25,9 +25,10 @@ const RegisterComponent = () => {
     // const form = event.currentTarget;
     // console.log(form);
     axios
-      .post("http://localhost:5000/user/signup", newData)
+      .post("http://localhost:3030/users", newData)
       .then((res) => {
-        if (res.data.status === "success") {
+        if (res.data._id) {
+          console.log(res.data);
           setSuccess(res.data.msg);
           setError(false);
           setAlert(true);
@@ -57,10 +58,10 @@ const RegisterComponent = () => {
 
   function ageCalc() {
     console.log(dob);
-    if (dob != "") {
+    if (dob !== "") {
       const mySec = Date.now() - new Date(dob);
       const myAge = mySec / (1000 * 3600 * 24 * 365);
-      if (myAge != 0) {
+      if (myAge !== 0) {
         setAge(Math.floor(myAge));
         setAgeShow(true);
       } else {
