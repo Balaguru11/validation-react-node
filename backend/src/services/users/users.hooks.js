@@ -1,8 +1,5 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
-<<<<<<< HEAD
-=======
 const validator = require("validator");
->>>>>>> cd7d3264d8628e7bb769e1ed3307118356323652
 
 const { hashPassword, protect } =
   require("@feathersjs/authentication-local").hooks;
@@ -12,9 +9,6 @@ module.exports = {
     all: [],
     find: [authenticate("jwt")],
     get: [authenticate("jwt")],
-<<<<<<< HEAD
-    create: [hashPassword("password")],
-=======
     create: [
       hashPassword("password"),
       async (context) => {
@@ -46,7 +40,6 @@ module.exports = {
           });
       },
     ],
->>>>>>> cd7d3264d8628e7bb769e1ed3307118356323652
     update: [hashPassword("password"), authenticate("jwt")],
     patch: [hashPassword("password"), authenticate("jwt")],
     remove: [authenticate("jwt")],
