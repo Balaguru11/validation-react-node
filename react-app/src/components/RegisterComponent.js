@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, TextField, Container, Alert } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
+import feathersClient from "../../src/client/index";
 
 const RegisterComponent = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +14,7 @@ const RegisterComponent = () => {
   const [alert, setAlert] = useState(false);
   const [age, setAge] = useState(0);
   const [ageShow, setAgeShow] = useState(false);
+
   let newData = {
     first_name: firstName,
     last_name: lastName,
@@ -21,30 +23,40 @@ const RegisterComponent = () => {
     password: password,
   };
 
-  function formSubmit(event) {
-    // const form = event.currentTarget;
-    // console.log(form);
-    axios
-      .post("http://localhost:3030/users", newData)
-      .then((res) => {
-        if (res.data._id) {
-          console.log(res.data);
-          setSuccess(res.data.msg);
-          setError(false);
-          setAlert(true);
-        } else if (res.data.status === "fail") {
-          setError(res.data.msg);
-          setAlert(true);
-        } else {
-          //2 error validation error
-          setError(res.data.errors[0].msg);
-          setAlert(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // function formSubmit(event) {
+  //   // const form = event.currentTarget;
+  //   // console.log(form);
+  //   axios
+  //     .post("http://localhost:3030/users", newData)
+  //     .then((res) => {
+  //       if (res.data._id) {
+  //         console.log(res.data);
+  //         setSuccess(res.data.msg);
+  //         setError(false);
+  //         setAlert(true);
+  //       } else if (res.data.status === "fail") {
+  //         setError(res.data.msg);
+  //         setAlert(true);
+  //       } else {
+  //         //2 error validation error
+  //         setError(res.data.errors[0].msg);
+  //         setAlert(true);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await feathersClient.service("users").create(newData);
+      setSuccess("User added successfully");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function dismissAlert() {
     setAlert(false);
