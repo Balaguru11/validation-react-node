@@ -7,7 +7,7 @@ const RegisterComponent = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
-  const [emailid, setEmailid] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -19,7 +19,7 @@ const RegisterComponent = () => {
     first_name: firstName,
     last_name: lastName,
     dob: dob,
-    emailid: emailid,
+    email: email,
     password: password,
   };
 
@@ -169,9 +169,9 @@ const RegisterComponent = () => {
               id="standard-basic"
               label="Email ID"
               variant="standard"
-              value={emailid}
+              value={email}
               onChange={(e) => {
-                setEmailid(e.target.value);
+                setEmail(e.target.value);
               }}
             />
             <TextField
