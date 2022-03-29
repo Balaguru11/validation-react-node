@@ -1,21 +1,23 @@
 import React from "react";
 import UsersListItem from "./UsersListItem";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 const UsersList = (props) => {
   return (
     <>
-      <Container maxWidth="sm">
+      <Grid container>
         {props.users.map((user) => (
-          <UsersListItem
-            key={user._id}
-            id={user._id}
-            firstName={user.first_name}
-            lastName={user.last_name}
-            email={user.email}
-            dob={user.dob}
-          />
+          <Grid item xs={3}>
+            <UsersListItem
+              key={user._id}
+              id={user._id}
+              firstName={user.first_name}
+              lastName={user.last_name}
+              email={user.email}
+              dob={user.dob}
+            />
+          </Grid>
         ))}
-      </Container>
+      </Grid>
     </>
   );
 };

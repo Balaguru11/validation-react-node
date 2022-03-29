@@ -179,7 +179,7 @@ const RegisterComponent = () => {
               required
               id="standard-basic"
               label="Password"
-              type="password"
+              type="text"
               variant="standard"
               value={password}
               onChange={(e) => {
