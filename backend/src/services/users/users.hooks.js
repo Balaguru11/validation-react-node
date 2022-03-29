@@ -13,7 +13,7 @@ module.exports = {
       hashPassword("password"),
       async (context) => {
         let input = context.data;
-        let errors = [];
+        // let errors = [];
         // console.log(input);
         //const userService = app.service('users');
 
