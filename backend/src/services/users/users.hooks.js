@@ -13,28 +13,49 @@ module.exports = {
       hashPassword("password"),
       async (context) => {
         let input = context.data;
+        // console.log(input);
         //const userService = app.service('users');
 
         if (validator.isEmpty(input.first_name)) {
           throw new Error("Please Enter Your Name");
         }
-        if (validator.isEmpty(input.emailid)) {
-          throw new Error("Please Enter Your Email ID");
-        } else if (!validator.isEmail(input.emailid)) {
-          throw new Error("Please Enter Valid Email ID");
+        if (!validator.isDate(input.dob, new Date())) {
+          throw new Error("Please Enter valid Date");
         }
-        if (validator.isEmpty(input.password)) {
-          throw new Error("Please Enter Password");
+        if (validator.isEmpty(input.email) || !validator.isEmail(input.email)) {
+          throw new Error("Please Enter valid Email ID");
+        }
+        // else if (!validator.isEmail(input.email)) {
+        //   throw new Error("Please Enter Valid Email ID");
+        // }
+        if (
+          !validator.isStrongPassword(input.password, {
+            minLength: 8,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1,
+            returnScore: true,
+            pointsPerUnique: 1,
+            pointsPerRepeat: 0.5,
+            pointsForContainingLower: 10,
+            pointsForContainingUpper: 10,
+            pointsForContainingNumber: 10,
+            pointsForContainingSymbol: 10,
+          })
+        ) {
+          throw new Error(
+            "Password Should Contain 8 Characters , 1 Uppercase , 1 Special Character"
+          );
         }
 
         await context.service
           .find({
             query: {
-              emailid: input.emailid,
+              email: input.email,
             },
           })
-          .then((data) => {
-            if (data.data.length) {
+          .then((result) => {
+            if (result.data.length) {
               throw new Error("This Email ID Is Already Present.");
             }
           });
