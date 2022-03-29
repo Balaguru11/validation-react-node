@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button, Box, TextField, Container, Alert } from "@mui/material";
 // import axios from "axios";
 import feathersClient from "../client/index";
+import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   // const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,12 +21,16 @@ const LoginComponent = () => {
   const formLogin = async (e) => {
     e.preventDefault();
     try {
-      await feathersClient.authenticate({
+      const auth = await feathersClient.authenticate({
         strategy: "local",
         ...userLogin,
       });
+
       const result = await feathersClient.get("authentication");
-      result ? setSuccess(result) : setSuccess(null);
+      // console.log(result);
+      result
+        ? navigate("/all-users", { authenticate: result })
+        : setSuccess("Error");
     } catch (err) {
       console.log(err);
     }

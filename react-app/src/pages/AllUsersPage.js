@@ -8,10 +8,13 @@ const AllUsersPage = () => {
     getData();
   }, []);
 
-  async function getData() {
+  async function getData(e) {
+    // e.preventDefault();
     try {
-      const getUserData = await feathersClient.service("users").find({});
-      setUsersList(getUserData);
+      //displaying all user data
+      const getUserData = await feathersClient.service("users").find();
+      console.log(getUserData.data);
+      setUsersList(getUserData.data);
     } catch (err) {
       console.log(err);
     }

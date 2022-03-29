@@ -20,8 +20,8 @@ const UsersListItem = (props) => {
   }
   return (
     <>
-      <Card key={props._id} sx={{ minWidth: 275 }}>
-        <CardContent>
+      <Card key={props.id} sx={{ m: 2, maxBlockSize: 500 }}>
+        <CardContent align="left">
           <Typography variant="h5" component="div">
             {props.firstName}
           </Typography>
@@ -29,25 +29,28 @@ const UsersListItem = (props) => {
             {props.lastName}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="Text.secondary" gutterBottom>
-            <EmailIcon />: {props.emailid}
+            <EmailIcon />: {props.email}
+            <br />
             <CakeIcon />: {props.dob}
           </Typography>
         </CardContent>
         <CardActions>
           <Button
-            id={props._id}
-            color="secondary"
+            id={props.id}
+            color="success"
             variant="contained"
             size="small"
+            fullWidth={true}
             onClick={editUser}
           >
             Edit
           </Button>
           <Button
-            id={props._id}
+            id={props.id}
             size="small"
-            color="danger"
+            color="warning"
             variant="contained"
+            fullWidth={true}
             onClick={deleteUser}
           >
             Delete
@@ -59,7 +62,7 @@ const UsersListItem = (props) => {
 };
 
 UsersListItem.propTypes = {
-  _id: PropTypes.string,
+  id: PropTypes.string,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   dob: PropTypes.string,
