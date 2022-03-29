@@ -28,9 +28,7 @@ const LoginComponent = () => {
 
       const result = await feathersClient.get("authentication");
       // console.log(result);
-      result
-        ? navigate("/all-users", { authenticate: result })
-        : setSuccess("Error");
+      result ? navigate("/all-users") : setSuccess("Error");
     } catch (err) {
       console.log(err);
     }
