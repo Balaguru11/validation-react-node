@@ -13,21 +13,22 @@ module.exports = {
       hashPassword("password"),
       async (context) => {
         let input = context.data;
+        let errors = [];
         // console.log(input);
         //const userService = app.service('users');
 
         if (validator.isEmpty(input.first_name)) {
-          throw new Error("Please Enter Your Name");
+          throw new Error("Please Enter Your First Name");
+        }
+        if (validator.isEmpty(input.last_name)) {
+          throw new Error("Please Enter Your Last Name");
         }
         if (!validator.isDate(input.dob, new Date())) {
-          throw new Error("Please Enter valid Date");
+          throw new Error("Please Enter Valid Date");
         }
         if (validator.isEmpty(input.email) || !validator.isEmail(input.email)) {
-          throw new Error("Please Enter valid Email ID");
+          throw new Error("Please Enter Valid Email ID");
         }
-        // else if (!validator.isEmail(input.email)) {
-        //   throw new Error("Please Enter Valid Email ID");
-        // }
         if (
           !validator.isStrongPassword(input.password, {
             minLength: 8,
@@ -49,11 +50,7 @@ module.exports = {
         }
 
         await context.service
-          .find({
-            query: {
-              email: input.email,
-            },
-          })
+          .find({ query: { email: input.email } })
           .then((result) => {
             if (result.data.length) {
               throw new Error("This Email ID Is Already Present.");
