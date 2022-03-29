@@ -52,6 +52,7 @@ const RegisterComponent = () => {
     e.preventDefault();
     try {
       const result = await feathersClient.service("users").create(newData);
+      console.log(result);
       setSuccess("User added successfully");
     } catch (err) {
       console.log(err);

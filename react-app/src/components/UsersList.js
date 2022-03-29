@@ -8,9 +8,10 @@ const UsersList = (props) => {
         {props.users.map((user) => (
           <UsersListItem
             key={user._id}
+            id={user._id}
             firstName={user.first_name}
             lastName={user.last_name}
-            emailid={user.emailid}
+            email={user.email}
             dob={user.dob}
           />
         ))}

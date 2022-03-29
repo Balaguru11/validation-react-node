@@ -18,9 +18,9 @@ module.exports = {
         if (validator.isEmpty(input.first_name)) {
           throw new Error("Please Enter Your Name");
         }
-        if (validator.isEmpty(input.emailid)) {
+        if (validator.isEmpty(input.email)) {
           throw new Error("Please Enter Your Email ID");
-        } else if (!validator.isEmail(input.emailid)) {
+        } else if (!validator.isEmail(input.email)) {
           throw new Error("Please Enter Valid Email ID");
         }
         if (validator.isEmpty(input.password)) {
@@ -30,7 +30,7 @@ module.exports = {
         await context.service
           .find({
             query: {
-              emailid: input.emailid,
+              email: input.email,
             },
           })
           .then((data) => {
