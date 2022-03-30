@@ -25,11 +25,11 @@ const LoginComponent = () => {
         strategy: "local",
         ...userLogin,
       });
-
       const result = await feathersClient.get("authentication");
       // console.log(result);
-      result ? navigate("/all-users") : setSuccess("Error");
+      result ? navigate("/all-users") : setError("Error");
     } catch (err) {
+      setError("Not a valid login");
       console.log(err);
     }
   };

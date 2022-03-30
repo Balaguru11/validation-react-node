@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardActions,
@@ -9,15 +9,47 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import CakeIcon from "@mui/icons-material/Cake";
 import PropTypes from "prop-types";
+import feathersClient from "../../src/client/index";
 
 const UsersListItem = (props) => {
-  function editUser() {
-    console.log("editing user");
+  const [msg, setMsg] = useState("");
+
+  async function editUser(event) {
+    event.preventDefault();
+    const id = event.target.id;
+    try {
+      const reAuth = await feathersClient.reAuthenticate();
+      if (reAuth.accessToken) {
+        // get data from id and display it in modal as Register form.. Edit the details and submit to call patch method directly.
+        const editUser = await feathersClient.service("users").patch(id);
+        console.log(editUser);
+      } else {
+        console.log("Not edited");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function deleteUser() {
-    console.log("Deleting user");
+  async function deleteUser(event) {
+    event.preventDefault();
+    try {
+      const id = event.target.id;
+      const reAuth = await feathersClient.reAuthenticate();
+      console.log(reAuth);
+      if (reAuth.accessToken && id !== reAuth.user._id) {
+        const deleteUser = await feathersClient.service("users").remove(id, {});
+        setMsg("User Deleted Successfully");
+        // console.log(deleteUser);
+      } else {
+        setMsg("");
+        console.log("Not logged in");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+
   return (
     <>
       <Card key={props.id} sx={{ m: 2, maxBlockSize: 500 }}>
