@@ -24,7 +24,7 @@ const LoginComponent = () => {
       const auth = await feathersClient.authenticate({
         strategy: "local",
         ...userLogin,
-      });
+      }); //login
       const result = await feathersClient.get("authentication");
       // console.log(result);
       result ? navigate("/all-users") : setError("Error");

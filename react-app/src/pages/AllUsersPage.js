@@ -18,7 +18,7 @@ const AllUsersPage = () => {
       //re authenticate
       const reAuth = await feathersClient.reAuthenticate();
       if (reAuth.accessToken) {
-        const getUserData = await feathersClient.service("users").find();
+        const getUserData = await feathersClient.service("users").find(); //
         console.log(getUserData.data);
         setAuthentic(reAuth);
         setUsersList(getUserData.data);

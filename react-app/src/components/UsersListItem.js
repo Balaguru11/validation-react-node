@@ -38,7 +38,7 @@ const UsersListItem = (props) => {
       const reAuth = await feathersClient.reAuthenticate();
       console.log(reAuth);
       if (reAuth.accessToken && id !== reAuth.user._id) {
-        const deleteUser = await feathersClient.service("users").remove(id, {});
+        const deleteUser = await feathersClient.service("users").remove(id, {}); //softdel
         setMsg("User Deleted Successfully");
         // console.log(deleteUser);
       } else {

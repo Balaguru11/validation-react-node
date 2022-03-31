@@ -30,5 +30,3 @@
   },
   "mongodb": "mongodb://localhost:27017/form_validation"
 }
-
-
